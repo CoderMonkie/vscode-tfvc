@@ -172,7 +172,7 @@ export class TfvcSCMProvider implements vscode.Disposable {
             // Mirror handleCheckout() and fall back to the active editor so
             // "TFVC: Add to Source Control" is not a silent no-op.
             const active = vscode.window.activeTextEditor?.document.uri;
-            if (active) { uris.push(active); }
+            if (active?.scheme === 'file') { uris.push(active); }
         }
         if (uris.length === 0) { return; }
         await this.repo.add(uris.map(u => u.fsPath));
